@@ -1,0 +1,67 @@
+[project]
+name = "aml-transaction-detection"
+version = "0.1.0"
+description = "Anti-Money Laundering (AML) transaction analysis using IBM synthetic dataset"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    # Core data
+    "polars>=1.0.0",            # lazy evaluation, memory-efficient
+    "pyarrow>=15.0.0",          # fast parquet / arrow IO
+    "pandas>=2.2.0",            # fallback for legacy viz
+    "numpy>=1.26.0",
+
+    # Visualisation
+    "matplotlib>=3.8.0",
+    "seaborn>=0.13.0",
+    "plotly>=5.20.0",
+    "kaleido>=0.2.1",           # static plotly export
+
+    # ML / stats
+    "scikit-learn>=1.4.0",
+    "scipy>=1.12.0",
+    "imbalanced-learn>=0.12.0", # SMOTE etc. for imbalanced AML data
+    "xgboost>=2.0.0",
+    "lightgbm>=4.3.0",
+
+    # Network / graph analysis
+    "networkx>=3.2.0",
+    "python-igraph>=0.11.0",
+
+    # Notebook
+    "jupyter>=1.0.0",
+    "ipykernel>=6.29.0",
+    "ipywidgets>=8.1.0",
+
+    # Utilities
+    "tqdm>=4.66.0",
+    "rich>=13.7.0",
+    "kaggle>=1.6.0",            # dataset download
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.4.0",
+    "pytest>=8.0.0",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "ruff>=0.4.0",
+    "pytest>=8.0.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+ignore = ["E501"]
