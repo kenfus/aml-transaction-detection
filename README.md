@@ -30,7 +30,17 @@ uv run jupyter lab
 
 ## Dataset
 
-Six independent CSV files across two groups:
+The benchmark family includes multiple `HI` / `LI` and `Small` / `Medium` / `Large` splits, but this repo currently analyses only the **HI-Large** split.
+
+- Notebook transaction input: `data/raw/HI-Large_Trans.csv`
+- Notebook patterns input: `data/raw/HI-Large_Patterns.txt`
+- Other splits and companion files are not used by `notebooks/01_eda.ipynb`
+
+In the broader benchmark:
+
+- `HI` = high-illicit-ratio split, with roughly 5% laundering-labelled transactions
+- `LI` = low-illicit-ratio split, with roughly 0.1% laundering-labelled transactions
+- `Small` / `Medium` / `Large` refer to dataset size, not a different schema
 
 | Group | Size   | Approx illicit ratio |
 |-------|--------|----------------------|
@@ -40,6 +50,12 @@ Six independent CSV files across two groups:
 | LI    | Small  | ~0.1 %               |
 | LI    | Medium | ~0.1 %               |
 | LI    | Large  | ~0.1 %               |
+
+Each split ships with three companion files:
+
+- `*_Trans.csv` = transaction-level records
+- `*_accounts.csv` = account metadata
+- `*_Patterns.txt` = ground-truth laundering pattern blocks
 
 ### Columns
 
@@ -61,11 +77,18 @@ Six independent CSV files across two groups:
 
 - **Fan-out** – One account rapidly sends to many recipients
 - **Fan-in** – Many accounts consolidate to one
+- **Bipartite** – Many-to-many transfer block between sender and receiver sets
 - **Cycle** – Money circulates through a closed loop of accounts
 - **Gather-Scatter** – Aggregate then disperse through layering
 - **Scatter-Gather** – Disperse then re-aggregate
 - **Stack** – Layered pass-through chains
 - **Random** – Irregular mixing pattern
+
+## Example
+
+The structuring / smurfing view from the EDA is one of the clearest visuals in the notebook:
+
+![Smurfing pattern](images/smurfing.png)
 
 ## Project layout
 
